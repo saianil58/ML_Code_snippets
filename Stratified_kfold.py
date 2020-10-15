@@ -26,9 +26,8 @@ if __name__ == "__main__":
     kf = model_selection.StratifiedKFold(n_splits=5)
     
     # fill the new kfold column with fold numbers
-    for loop_ctr, (train_index,test_index) in enumerate(kf.split(X=df,y=y)):
-        # populate the loop iter value into test index and to kfold column
-        df.loc[test_index,'kfold'] = loop_ctr   
+    for fold, (trn_, val_) in enumerate(kf.split(X=df,y=y)):
+        df.loc[val_, 'kfold'] = fold
     
     # save the new csv with kfold column
     df.to_csv("train_folds.csv", index=False)
